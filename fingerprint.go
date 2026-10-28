@@ -9,7 +9,6 @@ import (
 	"fmt"
 	"hash"
 	"io"
-	"math"
 	"net/http"
 )
 
@@ -36,8 +35,8 @@ func FingerprintRequestWithLimit(r *http.Request, maxBodyBytes int64) (string, e
 	if r == nil {
 		return "", errors.New("idempotency: request must not be nil")
 	}
-	if maxBodyBytes <= 0 || maxBodyBytes >= math.MaxInt64 {
-		return "", fmt.Errorf("idempotency: maxBodyBytes must be between 1 and %d", math.MaxInt64-1)
+	if maxBodyBytes <= 0 {
+		return "", errors.New("idempotency: maxBodyBytes must be positive")
 	}
 
 	body, err := readAndRestoreBody(r, maxBodyBytes)
