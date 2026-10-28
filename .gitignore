@@ -1,0 +1,20 @@
+# Go build and test output
+*.test
+*.out
+coverage.*
+*.prof
+/bin/
+/dist/
+
+# Node tooling (commitlint, semantic-release)
+node_modules/
+*.tgz
+
+# Environment files
+.env
+.env.*.local
+
+# Editors and OS
+.idea/
+.vscode/
+.DS_Store
