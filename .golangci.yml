@@ -15,10 +15,6 @@ linters:
     - unused
     - gosec
   settings:
-    gosec:
-      excludes:
-        # Tests use fixed fixtures and local listeners; these rules only add noise there.
-        - G404
     revive:
       rules:
         - name: exported
