@@ -1,4 +1,8 @@
 # yaarys-idempotency-go
+<picture>
+  <source media="(max-width: 640px)" srcset="https://raw.githubusercontent.com/yedoma-labs/assets/main/resized/banner-resized-mobile.png">
+  <img src="https://raw.githubusercontent.com/yedoma-labs/assets/main/resized/banner-resized.png" alt="Project Header">
+</picture>
 
 Idempotency keys for HTTP `POST`, `PUT` and `PATCH` requests in Go. Standard library only.
 
