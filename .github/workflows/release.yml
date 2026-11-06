@@ -8,7 +8,27 @@ permissions:
   contents: read
 
 jobs:
+  changes:
+    # Release only when main has commits after the latest tag. A release commit that goes back to main, or a run with
+    # no new work, must not publish again.
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.check.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+      - id: check
+        run: |
+          last=$(git describe --tags --abbrev=0 2>/dev/null || true)
+          changed=true
+          if [ -n "$last" ] && [ "$(git rev-list --count "$last..HEAD")" -eq 0 ]; then changed=false; fi
+          echo "changed=$changed" >> "$GITHUB_OUTPUT"
+          echo "latest tag: ${last:-none}, changes on main since: $changed"
   release:
+    needs: changes
+    if: needs.changes.outputs.changed == 'true'
     runs-on: ubuntu-latest
     permissions:
       contents: write
